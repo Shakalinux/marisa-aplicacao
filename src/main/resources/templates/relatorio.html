@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .card {
+      margin-bottom: 20px;
+    }
+    .chart-container {
+      position: relative;
+      height: 40vh;
+      width: 80vw;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2 class="text-center mt-4">Dashboard</h2>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total de Funcionários</h5>
+          <h2 class="card-text" th:text="${totalFuncionarios}"></h2>
+          <i class="fas fa-users fa-3x"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total de Produtos</h5>
+          <h2 class="card-text" th:text="${totalProdutos}"></h2>
+          <i class="fas fa-box fa-3x"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card text-center">
+        <div class="card-body">
+          <h5 class="card-title">Total de Vendas</h5>
+          <h2 class="card-text" th:text="${totalVendas}"></h2>
+          <i class="fas fa-shopping-cart fa-3x"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 chart-container">
+      <canvas id="barChart"></canvas>
+    </div>
+    <div class="col-md-6 chart-container">
+      <canvas id="pieChart"></canvas>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <h4>Funcionário com Mais Vendas</h4>
+      <p th:text="'Nome: ' + ${topFuncionarioNome}"></p>
+      <p th:text="'Total de Vendas: ' + ${topFuncionarioVendas}"></p>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Gráfico de Barras
+  const ctxBar = document.getElementById('barChart').getContext('2d');
+  const barChart = new Chart(ctxBar, {
+    type: 'bar',
+    data: {
+      labels: ['Funcionários', 'Produtos', 'Vendas'],
+      datasets: [{
+        label: 'Totais',
+        data: [
+          [[${totalFuncionarios}]],
+          [[${totalProdutos}]],
+          [[${totalVendas}]]
+        ],
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+        ],
+        borderColor: [
+          'rgba(54, 162, 235, 1)',
+          'rgba(75, 192, 192, 1)',
+          'rgba(255, 99, 132, 1)',
+        ],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+        },
+      },
+    }
+  });
+
+  // Gráfico de Pizza
+  const ctxPie = document.getElementById('pieChart').getContext('2d');
+  const pieChart = new Chart(ctxPie, {
+    type: 'pie',
+    data: {
+      labels: ['Funcionários', 'Produtos', 'Vendas'],
+      datasets: [{
+        label: 'Totais',
+        data: [
+          [[${totalFuncionarios}]],
+          [[${totalProdutos}]],
+          [[${totalVendas}]]
+        ],
+        backgroundColor: [
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+        ],
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          display: true,
+        },
+      },
+    }
+  });
+</script>
+</body>
+</html>
