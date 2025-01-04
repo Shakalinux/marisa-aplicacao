@@ -64,6 +64,7 @@ A aplicação segue a arquitetura **MVC** (Model-View-Controller) e utiliza as s
 - **Base64**: Para representar imagens binárias em formato textual, como avatares de perfil e imagens de tarefas.
 
 ## Banco de dados
+```
 +------------------+          +---------------------+           +------------------+
 |     pessoa       |          |      clientes       |           |      areas       |
 +------------------+          +---------------------+           +------------------+
@@ -101,3 +102,4 @@ A aplicação segue a arquitetura **MVC** (Model-View-Controller) e utiliza as s
          |            +-----------------------+--------------------+ |
          |                                +------------------------+ |
          +----------------------------------------------------------------
+```
