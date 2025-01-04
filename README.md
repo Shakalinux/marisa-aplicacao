@@ -62,3 +62,42 @@ A aplicação segue a arquitetura **MVC** (Model-View-Controller) e utiliza as s
 - **Spring Data JPA**: Para fácil acesso a dados no banco de dados relacional.
 - **Thymeleaf**: Para renderizar a interface do usuário com HTML dinâmico.
 - **Base64**: Para representar imagens binárias em formato textual, como avatares de perfil e imagens de tarefas.
+
+## Banco de dados
++------------------+          +---------------------+           +------------------+
+|     pessoa       |          |      clientes       |           |      areas       |
++------------------+          +---------------------+           +------------------+
+| - idPessoa: INT  |<---------| - idCliente: INT     |           | - idArea: INT    |
+| - nome: VARCHAR  |          | - email: VARCHAR     |           | - nome: VARCHAR  |
+| - cpf: VARCHAR   |          | - idPessoa: INT      |           +------------------+
+| - telefone: VARCHAR|        |                     |
++------------------+          +---------------------+           +------------------+
+         ^                               ^                      |    |    |    |
+         |                               |                      |    |    |
+         |                               |                      |    |    |
+         |                               +----------------------+    |    |
+         |                                                        |    |
+         |                                                        |    |
+         |   +------------------+     +--------------------+     |    |
+         |   |   funcionarios    |     |     produtos       |     |    |
+         |   +------------------+     +--------------------+     |    |
+         |   | - idFuncionario: INT |   | - idProduto: INT   |     |    |
+         |   | - matricula: VARCHAR |   | - nome: VARCHAR    |     |    |
+         |   | - idPessoa: INT       |   | - preco: DECIMAL   |     |    |
+         |   | - idArea: INT         |   | - categoria: ENUM  |     |    |
+         |   | - salario: DECIMAL    |   | - descricao: TEXT  |     |    |
+         |   +------------------+     +--------------------+     |    |
+         |            ^                       |                   |    |
+         |            |                       |                   |    |
+         |            |                       +-------------------+    |
+         |            |                                ^             |
+         |            |                                |             |
+         |            |                                |             |
+         |            |                       +--------------------+ |
+         |            |                       | clientes_produtos  | |
+         |            |                       +--------------------+ |
+         |            |                       | - idCliente: INT    | |
+         |            |                       | - idProduto: INT    | |
+         |            +-----------------------+--------------------+ |
+         |                                +------------------------+ |
+         +----------------------------------------------------------------
