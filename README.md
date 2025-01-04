@@ -65,41 +65,52 @@ A aplicação segue a arquitetura **MVC** (Model-View-Controller) e utiliza as s
 
 ## Banco de dados
 ```
-+------------------+          +---------------------+           +------------------+
-|     pessoa       |          |      clientes       |           |      areas       |
-+------------------+          +---------------------+           +------------------+
-| - idPessoa: INT  |<---------| - idCliente: INT     |           | - idArea: INT    |
-| - nome: VARCHAR  |          | - email: VARCHAR     |           | - nome: VARCHAR  |
-| - cpf: VARCHAR   |          | - idPessoa: INT      |           +------------------+
-| - telefone: VARCHAR|        |                     |
-+------------------+          +---------------------+           +------------------+
-         ^                               ^                      |    |    |    |
-         |                               |                      |    |    |
-         |                               |                      |    |    |
-         |                               +----------------------+    |    |
-         |                                                        |    |
-         |                                                        |    |
-         |   +------------------+     +--------------------+     |    |
-         |   |   funcionarios    |     |     produtos       |     |    |
-         |   +------------------+     +--------------------+     |    |
-         |   | - idFuncionario: INT |   | - idProduto: INT   |     |    |
-         |   | - matricula: VARCHAR |   | - nome: VARCHAR    |     |    |
-         |   | - idPessoa: INT       |   | - preco: DECIMAL   |     |    |
-         |   | - idArea: INT         |   | - categoria: ENUM  |     |    |
-         |   | - salario: DECIMAL    |   | - descricao: TEXT  |     |    |
-         |   +------------------+     +--------------------+     |    |
-         |            ^                       |                   |    |
-         |            |                       |                   |    |
-         |            |                       +-------------------+    |
-         |            |                                ^             |
-         |            |                                |             |
-         |            |                                |             |
-         |            |                       +--------------------+ |
-         |            |                       | clientes_produtos  | |
-         |            |                       +--------------------+ |
-         |            |                       | - idCliente: INT    | |
-         |            |                       | - idProduto: INT    | |
-         |            +-----------------------+--------------------+ |
-         |                                +------------------------+ |
-         +----------------------------------------------------------------
+classDiagram
+    class pessoa {
+        +int idPessoa
+        +string nome
+        +string cpf
+        +string telefone
+    }
+
+    class clientes {
+        +int idCliente
+        +string email
+        +int idPessoa
+    }
+
+    class areas {
+        +int idArea
+        +string nome
+    }
+
+    class funcionarios {
+        +int idFuncionario
+        +string matricula
+        +int idPessoa
+        +int idArea
+        +decimal salario
+    }
+
+    class produtos {
+        +int idProduto
+        +string nome
+        +decimal preco
+        +string categoria
+        +string descricao
+    }
+
+    class clientes_produtos {
+        +int idCliente
+        +int idProduto
+    }
+
+    pessoa <|-- clientes : "idPessoa"
+    areas <|-- funcionarios : "idArea"
+    pessoa <|-- funcionarios : "idPessoa"
+    funcionarios "1" --> "0..*" produtos : "Relacionamento"
+    clientes "1" --> "0..*" produtos : "Comprou"
+    clientes_produtos "0..*" --> "1" produtos : "Relacao"
+    clientes_produtos "0..*" --> "1" clientes : "Relacao"
+
 ```
