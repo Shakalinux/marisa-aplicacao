@@ -35,7 +35,7 @@ Abaixo estão algumas imagens que mostram a interface do sistema para o gerencia
 ### Visualização de Dados
 ![Visualização de Dados](https://i.postimg.cc/yNb1ymGb/5.png)
 
-### Edição de Produto
+### Dashboard 
 ![Edição de Produto](https://i.postimg.cc/bvJYnCmn/6.png)
 
 ## Estrutura do Projeto
